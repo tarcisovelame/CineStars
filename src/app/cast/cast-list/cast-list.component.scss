@@ -1,0 +1,52 @@
+.cast {
+
+    font-family: 'Fjalla One', sans-serif;
+    text-align:center;
+
+    .text-center {
+        height: 0;
+        width: 100%;
+        z-index: 30;
+        position: relative;
+    }
+    
+    button.btn {
+        margin-top: 50%;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;    
+    }
+    
+    &:hover button.btn {
+        opacity: 1;
+        transition: opacity .3s ease-in-out;    
+    }
+    
+    img {
+        border-radius: 7px;        
+        width:100%;
+        transition: opacity .3s ease-in-out, margin-top .2s ease-in-out;    
+    }
+
+    &:hover img {
+        opacity: .5;
+        margin-top:-5px;
+        transition: opacity .3s ease-in-out, margin-top .2s ease-in-out;  
+    }
+
+    span.btn {
+        float: right;
+        position: absolute;
+        bottom: 5px;
+        right: 20px;
+    }
+
+    
+    a {
+        color:#888;
+        transition: color .3s ease-in-out;
+        &:hover {
+            color: #ed315d;
+            transition: color .3s ease-in-out;
+        }
+    }
+}

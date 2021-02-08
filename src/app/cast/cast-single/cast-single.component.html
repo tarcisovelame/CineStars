@@ -1,0 +1,23 @@
+<div class="row" *ngIf="person">
+    <div class="col-md-4 thumb">
+        <img src="https://image.tmdb.org/t/p/w500{{ person.profile_path }}" alt="">
+    </div>
+    <div class="col-md-8">
+        <h1>{{ person.name }}<small *ngIf="person.birthday">{{ dataConverter(person.birthday) }}</small></h1>
+    
+        <p class="resumo">{{ person.biography }}</p>
+
+        <h2>Filmes</h2>
+
+        <div class="row elenco">
+            <div class="col-md-2" *ngFor="let filme of filmes?.slice(0, 6)">
+                <a [routerLink]="['/filmes', filme.id]">
+                    <img src="https://image.tmdb.org/t/p/w200{{ filme.poster_path }}" alt="">
+                    {{ filme.title }}
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</div>

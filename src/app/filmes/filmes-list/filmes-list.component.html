@@ -1,0 +1,38 @@
+<div class="row">
+
+    <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2 mb-3 filme" *ngFor="let filme of filmes">
+        <a [routerLink]="['/filmes', filme.id]">
+            <div class="text-center">
+                <button class="btn btn-mat">Visualizar</button>
+            </div>
+            <img src="https://image.tmdb.org/t/p/w400{{ filme.poster_path }}" alt="">
+            <span href="#" class="btn btn-dark btn-sm btn-rounded">
+                <fa icon="star"></fa> {{ filme.vote_average }}
+            </span>
+        </a>
+    </div>
+
+</div>
+
+<!-- Paginacao -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled' : pagina == 1}">
+        <a class="page-link" aria-label="Previous" (click)="page(pagina-1)">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item" [ngClass]="{'active' : pagina == 1}"><a class="page-link" (click)="page(1)">1</a></li>
+      <li class="page-item" [ngClass]="{'active' : pagina == 2}"><a class="page-link" (click)="page(2)">2</a></li>
+      <li class="page-item" [ngClass]="{'active' : pagina == 3}"><a class="page-link" (click)="page(3)">3</a></li>
+      <li class="page-item" [ngClass]="{'active' : pagina == 4}"><a class="page-link" (click)="page(4)">4</a></li>
+      <li class="page-item" [ngClass]="{'active' : pagina == 5}"><a class="page-link" (click)="page(5)">5</a></li>
+      <li class="page-item" [ngClass]="{'disabled' : pagina == 5}">
+        <a class="page-link" aria-label="Next" (click)="page(pagina+1)">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>    

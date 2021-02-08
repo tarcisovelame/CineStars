@@ -1,0 +1,91 @@
+<div class="row" *ngIf="filme">
+    <div class="col-md-4 thumb">
+        <img src="https://image.tmdb.org/t/p/w500{{ filme.poster_path }}" alt="">
+    </div>
+    <div class="col-md-8">
+        <h1>{{ filme.title }}<small *ngIf="filme.release_date">{{ filme.release_date.substr(0,4) }}</small></h1>
+        <span class="genero">
+            <span *ngFor="let genero of filme.genres; let isLast=last">
+                <a href="#">{{ genero.name }}</a>{{isLast ? '' : ' / '}}
+            </span>
+        </span>
+
+        <div>
+            <button class="btn btn-mat btn-sm" (click)="votoModal(escolherNota)">
+                <fa icon="star"></fa> Votar
+            </button>
+        </div>
+
+        <p class="resumo">{{ filme.overview }}</p>
+
+        <div class="info">
+            <span class="btn btn-dark btn-sm btn-rounded">
+                <fa icon="star"></fa> <span>{{ filme.vote_average }}</span> Nota média
+            </span>
+            <span class="btn btn-dark btn-sm btn-rounded">
+                <fa icon="user-friends"></fa> <span>{{ filme.vote_count }}</span> Votos
+            </span>
+            <span class="btn btn-dark btn-sm btn-rounded">
+                <fa icon="fire"></fa> <span>{{ filme.popularity }}</span> Popularidade
+            </span>
+        </div>
+
+        <h2>Elenco</h2>
+
+        <div class="row elenco">
+            <div class="col-md-2" *ngFor="let ator of cast?.slice(0, 6)">
+                <a [routerLink]="['/cast', ator.id]">
+                    <img src="https://image.tmdb.org/t/p/w200{{ ator.profile_path }}" alt="">
+                    {{ ator.name }}
+                </a>
+            </div>
+        </div>
+
+        <h2>Diretores</h2>
+
+        <div class="row diretores">
+            <div class="col-md-2" *ngFor="let ator of equipe?.slice(0, 6)">
+                <a href="#">
+                    <img src="https://image.tmdb.org/t/p/w200{{ ator.profile_path }}" alt="">
+                    {{ ator.name }}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal de escolher nota -->
+<ng-template #escolherNota>
+    <div class="modal-votar" *ngIf="!votoConcluido; else resultado">
+        <form [formGroup]="formulario">
+
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Escolha sua nota</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="nota">Escolha sua nota <small>(de 0.0 à 10)</small></label>
+                <input type="text" id="nota" formControlName="nota" class="form-control col-md-2" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-mat"
+                    (click)="votar(filme.id, autenticado.guest_session_id, formulario.value.nota)">
+                    <fa icon="star"></fa> Votar
+                </button>
+                <button class="btn btn-secondary" (click)="modalRef.hide()">Fechar</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #resultado>
+    <div class="modal-body text-center">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>Você votou <span class="btn btn-mat btn-sm btn-rounded"><fa icon="star"></fa> {{ formulario.value.nota }}</span></h4>
+    </div>
+</ng-template>
